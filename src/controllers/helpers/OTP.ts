@@ -13,7 +13,7 @@ export function generateOTP(length: number = 6): string {
 
     return otp;
 }
-interface OTPInterface {
+export interface OTPInterface {
     otp: string;
     user: UserInterface;
 }

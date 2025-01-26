@@ -9,6 +9,7 @@ import * as help from "./help";
 import * as ticket from "./ticket";
 import * as resolve from "./resolve";
 import * as setverifymessage from "./setverifymessage";
+import * as setverifylog from "./setverifylog";
 
 export const commands = {
     setwelcomechannel,
@@ -17,9 +18,21 @@ export const commands = {
     disablewelcome,
     reloadcommands,
     ticket,
+    setverifylog,
     help,
     setverifymessage,
     resolve,
 };
 
-export const botCommands = [setverifymessage, setwelcomechannel, register, generate, disablewelcome, help, reloadcommands, ticket, resolve];
+export const botCommands = [
+    setverifymessage,
+    setverifylog,
+    setwelcomechannel,
+    register,
+    generate,
+    disablewelcome,
+    help,
+    reloadcommands,
+    ticket,
+    resolve,
+];

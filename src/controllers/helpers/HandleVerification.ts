@@ -4,6 +4,7 @@ import {
     ButtonInteraction,
     ButtonStyle,
     CacheType,
+    EmbedBuilder,
     Interaction,
     MessageFlags,
     ModalActionRowComponentBuilder,
@@ -12,12 +13,14 @@ import {
     TextChannel,
     TextInputBuilder,
     TextInputStyle,
+    User,
 } from "discord.js";
 import { sendMail } from "../../utils/SMTP";
-import { generateOTP, TEMPOTP } from "./OTP";
+import { generateOTP, OTPInterface, TEMPOTP } from "./OTP";
 import { GuildModel } from "../../models/GuildModel";
 import { UserModel } from "../../models/User";
 import { generateOTPEmail } from "../../assets/templates/OTPTemplate";
+import { getClient } from "../../client";
 
 export const openVerificationModel = (interaction: ButtonInteraction) => {
     try {
@@ -79,7 +82,9 @@ const handleVerificationSubmit = async (interaction: ModalSubmitInteraction<Cach
         const row = new ActionRowBuilder<ButtonBuilder>().addComponents(OTPButton);
 
         await interaction.editReply({
-            content: `Email has been sent to \`${email}\`. Please provide the OTP.\nExpires in: <t:${Math.floor((Date.now() + 60 * 1000) / 1000)}:R>`,
+            content: `Email has been sent to \`${email}\`. Please provide the OTP.\nExpires in: <t:${Math.floor(
+                (Date.now() + 60 * 1000 * 5) / 1000
+            )}:R>`,
             components: [row],
         });
     } catch (error) {
@@ -141,6 +146,9 @@ const handleOTPModelSubmit = async (interaction: ModalSubmitInteraction<CacheTyp
                     await newUser.save();
                     guild.users.push(newUser);
                 }
+                //log the verification
+                await handleVerifyLog(OTPdata, interaction.guildId!, interaction.user);
+
                 await guild.save();
                 await member.roles.add(role);
                 await member.setNickname(OTPdata.user.full_name);
@@ -170,5 +178,24 @@ export const routeVerificationModel = (interaction: Interaction) => {
         }
     } catch (error) {
         console.error("Error in routeVerificationModel:", error);
+    }
+};
+
+export const handleVerifyLog = async (data: OTPInterface, guildID: string, user: User) => {
+    try {
+        const guild = await GuildModel.findOne({ guildId: guildID });
+        if (!guild?.verifyLogChannel) return;
+        const channel = (await getClient().channels.fetch(guild.verifyLogChannel)) as TextChannel;
+        if (!channel) return;
+        const embed = new EmbedBuilder();
+        embed.setTitle(`${data.user.full_name} Verified!`);
+        embed.setThumbnail(user.avatarURL());
+        embed.addFields({ name: "Email", value: data.user.email });
+        embed.addFields({ name: "Phone", value: data.user.phone_number });
+        embed.setTimestamp();
+        embed.setColor("Green");
+        await channel.send({ embeds: [embed] });
+    } catch (e) {
+        console.log("Error while sending logs:", e);
     }
 };

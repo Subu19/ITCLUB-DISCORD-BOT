@@ -8,6 +8,7 @@ interface GuildInterface {
     welcomeChannel: string;
     chatChannel: string;
     users: UserInterface[];
+    verifyLogChannel: string;
 }
 
 var guildSchema = new Schema<GuildInterface>({
@@ -22,6 +23,9 @@ var guildSchema = new Schema<GuildInterface>({
         type: String,
     },
     chatChannel: {
+        type: String,
+    },
+    verifyLogChannel: {
         type: String,
     },
     users: [
