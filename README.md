@@ -24,8 +24,8 @@ A feature-rich and extensible Discord bot designed to enhance the **IT CLUB** co
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/itclub-discord-bot.git
-    cd itclub-discord-bot
+    git clone https://github.com/Subu19/ITCLUB-DISCORD-BOT.git
+    cd ITCLUB-DISCORD-BOT
     ```
 
 2. Install dependencies:
