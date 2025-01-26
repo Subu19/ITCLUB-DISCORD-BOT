@@ -25,7 +25,7 @@ const CHAT_HISTORY = new Map<string, Array<ChatCompletionMessageParam>>();
 
 //prepare instructions
 var instructions: ChatCompletionMessageParam;
-readFile("./src/assets/instructions/craftnepal.txt", { encoding: "utf8" }, (err, data) => {
+readFile("./src/assets/instructions/test.txt", { encoding: "utf8" }, (err, data) => {
     err
         ? console.log(err)
         : (instructions = {
