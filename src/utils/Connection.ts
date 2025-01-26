@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { env } from "./ValidEnv.js";
-const uri = process.env.MONGO_URI || "";
+const uri = process.env.MONGO_DB_URI || "";
 
 export const connect = async () => {
     mongoose

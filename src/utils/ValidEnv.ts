@@ -5,7 +5,7 @@ export const env = cleanEnv(process.env, {
     CLIENT_ID: str(),
     GUILD_ID: str(),
 
-    MONGODB_URI: str(),
+    MONGO_DB_URI: str(),
 
     VERIFIED_ROLE_ID: str(),
 
