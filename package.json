@@ -1,0 +1,44 @@
+{
+  "name": "cn_bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "dev1": "tsnd src/index.ts --respawn",
+    "start": "node dist/index.js",
+    "build": "tsup src/index.ts --minify",
+    "deployCommands": "tsup src/commands/*.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.3.2",
+    "@types/nodemailer": "^6.4.17",
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "tsup": "^8.0.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.44",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "envalid": "^8.0.0",
+    "mojang-lib": "^1.13.2",
+    "mongoose": "^8.0.4",
+    "mysql2": "^3.7.0",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^6.10.0",
+    "openai": "^4.32.1",
+    "path": "^0.12.7",
+    "request": "^2.88.2"
+  }
+}
